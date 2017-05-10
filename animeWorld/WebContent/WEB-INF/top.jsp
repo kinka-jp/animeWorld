@@ -1,11 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+int id = (int)request.getAttribute("id");
+String name = (String)request.getAttribute("name");
+String url = (String)request.getAttribute("url");
+int alexa = (int)request.getAttribute("alexa");
+String country = (String)request.getAttribute("country");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
  <title>top</title>
  <link href="<%=request.getContextPath()%>/css/index.css" rel="stylesheet" type="text/css"/>
+ 
+ <!-- google CDN Jquery-->
+ <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs
+/jquery/1.4.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#button1").click(function(){
+		$("#links").css("background-color","yellow");
+	});
+	//request html file from servlet.
+	$("#button2").click(function(){
+		$.get("MyServlet",function(result){
+			$("#top_welcome").html(result);
+			$("#links").css("background-color","yellow");
+		});
+	});
+
+});
+
+</script>
 </head>
 <body>
 <div align="center" name="main" id="main">
@@ -30,9 +58,28 @@
 
    </div>
 	<div align="left" name="contents" id="contents">
-   	<div align="center" id="top_welcome"><h3><font color="green"> <marquee behavior="alternate"> Welcome to my personal page.</marquee></font></h3> </div>
+   	<div align="center" id="top_welcome"><h3><font color="green"> <marquee behavior="alternate"> Welcome to animeWorld.</marquee></font></h3> </div>
 	</div>
-	<div style="height: 5px;"></div>
+	<div id="links" style="height: 20px;">
+	<table class="linkTable">
+		<TR>
+			<td>ID</td>
+			<td>NAME</td>
+			<td>URL</td>
+			<td>ALEXA</td>
+			<td>COUNTRY</td>
+		</TR>
+		<TR>
+			<td><%=id %></td>
+			<td><%=name %></td>
+			<td><%=url %></td>
+			<td><%=alexa %></td>
+			<td><%=country %></td>
+		</TR>
+	</table>
+	<button id="button1">Click me1</button><br/>
+	<button id="button2">Click me2</button><br/>
+	</div>
 <!--blogs-->
 	<div align="left" name="F_button" id="f_button">
 	   <div align="center" name="B_button" id="b_button">   
@@ -162,7 +209,7 @@ Be the best of whatever you are</font>
 		<div align="center" name="n_footer">
 			<table>
 				<tr>
-					<td><a>Designed by:Guo Yifei&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+					<td><a>Designed by:Kinka Tan&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
 					<td>From:<a href="http://www.neu.edu.cn/">NorthEast University</a></td>
 				</tr>
 			</table>
@@ -171,7 +218,7 @@ Be the best of whatever you are</font>
 		<br>
 			
 			<a>Address:No.11, Lane 3, WenHua Road, HePing District, Shenyang, Liaoning, China 110819</a><br>
-			<a>Email:<a href="mailto:2580321191@qq.com">2580321191@qq.com</a></a>
+			<a>Email:<a href="mailto:xxxxxxxx@qq.com">xxxxxxxx@qq.com</a></a>
 			
 		</div>
 	</div>
