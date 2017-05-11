@@ -66,6 +66,15 @@ body{
 	float: left;
 	overflow:hidden;
 }
+
+#googleMap{
+	width: 75%;
+	height: 640px;
+	border:0px #A00 solid;
+	background-color: #ffffff;
+	float: left;
+	overflow:hidden;
+}
 #content1,#content2,#content3{
 	width: 100%;
 	height: 635px;
