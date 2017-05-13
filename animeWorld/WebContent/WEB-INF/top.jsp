@@ -34,6 +34,9 @@ $(document).ready(function(){
 
 });
 
+//add marker
+var myCenter=new google.maps.LatLng(51.508742,-0.120850);
+var marker;
 function initialize(){
 	var mapProp = {
 	        center:new google.maps.LatLng(51.508742,-0.120850),
@@ -41,15 +44,39 @@ function initialize(){
 	        mapTypeId:google.maps.MapTypeId.ROADMAP
 	    };
 	    var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+	    //add a marker
+	marker=new google.maps.Marker({
+	  position:myCenter,
+	  animation:google.maps.Animation.BOUNCE
+	  });
+
+	marker.setMap(map);
+	
+	//information window
+	var infowindow = new google.maps.InfoWindow({
+		  content:"Hello World!"
+		  });
+
+	infowindow.open(map,marker);
+	
+	//event
+	google.maps.event.addListener(marker,'click',function() {
+  map.setZoom(9);
+  map.setCenter(marker.getPosition());
+  });
+	
 }
+	
 google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 </head>
 <body>
 <div align="center" name="main" id="main">
 	<div align="center" name="top" id="top">
       <div id="logo">
-       <div align="center" name="i_logo" id="i_logo"> </div>      
+       <!--  <div align="center" name="i_logo" id="i_logo"> </div>  -->    
       </div>	
    	<div align="center" name ="menu" id="menu">
 			<ul>
@@ -62,33 +89,33 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	</div>
 <!--top,contents-->
 	<div align="left" name="F_button" id="f_button">
-	   <div align="center" name="B_button" id="b_button">   
-   	  <a name="i_top" style="text-decoration: none;" href="#i_top">top</a>
-   	</div>
+	 <div align="center" name="B_button" id="b_button">   
+   	   <a name="i_top" style="text-decoration: none;" href="#i_top">top</a>
+   	 </div>
 
    </div>
-	<div align="left" name="contents" id="contents">
-   	<div align="center" id="top_welcome"><h3><font color="green"> <marquee behavior="alternate"> Welcome to animeWorld.</marquee></font></h3> </div>
+	<div align="left" name="top_contents" id="top_contents">
+   		<div align="center" id="top_welcome"><h3><font color="green"> <marquee behavior="alternate"> Welcome to animeWorld.</marquee></font></h3> </div>
 	</div>
-	<div id="links" style="height: 20px;">
-	<table class="linkTable">
-		<TR>
-			<td>ID</td>
-			<td>NAME</td>
-			<td>URL</td>
-			<td>ALEXA</td>
-			<td>COUNTRY</td>
-		</TR>
-		<TR>
-			<td><%=id %></td>
-			<td><%=name %></td>
-			<td><%=url %></td>
-			<td><%=alexa %></td>
-			<td><%=country %></td>
-		</TR>
-	</table>
-	<button id="button1">Click me1</button><br/>
-	<button id="button2">Click me2</button><br/>
+	<div id="links">
+		<table class="linkTable" border="2" >
+			<TR>
+				<td>ID</td>
+				<td>NAME</td>
+				<td>URL</td>
+				<td>ALEXA</td>
+				<td>COUNTRY</td>
+			</TR>
+			<TR>
+				<td><%=id %></td>
+				<td><%=name %></td>
+				<td><%=url %></td>
+				<td><%=alexa %></td>
+				<td><%=country %></td>
+			</TR>
+		</table>
+		<button id="button1">Click me1</button>
+		<button id="button2">Click me2</button>
 	</div>
 <!--blogs-->
 	<div align="left" name="F_button" id="f_button">
