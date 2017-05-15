@@ -23,28 +23,42 @@ String country = (String)request.getAttribute("country");
 $(document).ready(function(){
 	$("#button1").click(function(){
 		$("#links").css("background-color","yellow");
+
 	});
-	//request html file from servlet.
-	$("#button2").click(function(){
+	//request html file from servlet with get method.
+	$("#search_button").click(function(){
 		$.get("MyServlet",function(result){
 			$("#top_welcome").html(result);
-			$("#links").css("background-color","yellow");
-		});
+		});	
+		
+		var search_condition1 = $("#search_condition").val();
+		//var search_condition2 = search_condition1+10;
+		//alert(search_condition);
+		var location1 = new google.maps.LatLng(search_condition1,search_condition1);
+		//var location2 = new google.maps.LatLng(search_condition2,search_condition2);
+		addmarker(location1,1);
+		//addmarker(location2,2);
 	});
-
+	
+	//request data from servlet with post.
+	
 });
+
+
 
 //add marker
 var myCenter=new google.maps.LatLng(51.508742,-0.120850);
 var marker;
+var map = null;
+
 function initialize(){
 	var mapProp = {
 	        center:new google.maps.LatLng(51.508742,-0.120850),
 	        zoom:5,
 	        mapTypeId:google.maps.MapTypeId.ROADMAP
 	    };
-	    var map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
+	    map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
+	 	
 	    //add a marker
 	marker=new google.maps.Marker({
 	  position:myCenter,
@@ -61,7 +75,7 @@ function initialize(){
 	infowindow.open(map,marker);
 	
 	//event
-	google.maps.event.addListener(marker,'click',function() {
+  google.maps.event.addListener(marker,'click',function() {
   map.setZoom(9);
   map.setCenter(marker.getPosition());
   });
@@ -70,6 +84,24 @@ function initialize(){
 	
 google.maps.event.addDomListener(window, 'load', initialize);
 
+//add marker by click.
+//var latlng = new google.maps.LatLng(42.745334, 12.738430);
+
+function addmarker(latilongi,i) {
+    var marker = new google.maps.Marker({
+        position: latilongi,
+        title: 'new marker'+i,
+        draggable: true,
+        map: map
+    });
+    
+    var infowindow = new google.maps.InfoWindow({
+    	content:"new marker"+i
+    });
+    infowindow.open(map,marker);
+    map.setCenter(marker.getPosition());
+    //marker.setMap(map);
+}
 </script>
 </head>
 <body>
@@ -83,7 +115,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				<li id="index"><a href="#i_top">Top</a></li>
 				<li id="maps"><a href="#maps">maps</a></li>
 				<li id="album"><a href="#albums">Album</a></li>
-				<li id="aboutme"><a href="#footer">About me</a></li>			
+				<li id="aboutme"><a href="#footer">About</a></li>			
 			</ul>   	
    	</div>
 	</div>
@@ -115,15 +147,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</TR>
 		</table>
 		<button id="button1">Click me1</button>
-		<button id="button2">Click me2</button>
+		<input type="text" id="search_condition">
+		<button id="search_button">Search</button>
 	</div>
 <!--blogs-->
 	<div align="left" name="F_button" id="f_button">
 	   <div align="center" name="B_button" id="b_button">   
    	  <a name="tblog" style="text-decoration: none;" href="#maps">MAP</a>
-   	</div>
-   	<div align="center" name="B_T_top" id="b_t_top">   
-   	  <a name="top" style="text-decoration: none;" href="#top">Back to top</a>
    	</div>
    </div>
 	<div align="left" name="blogs" id="blogs">
@@ -133,9 +163,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<div align="left" name="F_button" id="f_button">
 	   <div align="center" name="B_button" id="b_button">   
    	  <a name="albums" style="text-decoration: none;" href="#albums">Album</a>
-   	</div>
-   	<div align="center" name="B_T_top" id="b_t_top">   
-   	  <a name="top" style="text-decoration: none;" href="#top">Back to top</a>
    	</div>
    </div>
 	<div align="left" name="d_album" id="d_album">
@@ -159,7 +186,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <!--footer-->
 	<div align="left" name="F_button" id="f_button">
 	   <div align="center" name="B_button" id="b_button">   
-   	  <a name="footer" style="text-decoration: none;" href="#footer">About Me</a>
+   	  <a name="footer" style="text-decoration: none;" href="#footer">About</a>
    	</div>
    	<div align="center" name="B_T_top" id="b_t_top">   
    	  <a name="top" style="text-decoration: none;" href="#top">Back to top</a>
